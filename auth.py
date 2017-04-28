@@ -36,8 +36,6 @@ if not CLEAN:
         "ttl": 120
     }
 
-    print(data)
-
     record_id = req.post("{ep}/zones/{zone_id}/dns_records".format(
         ep=ENDPOINT,
         zone_id=zone_id),
