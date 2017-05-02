@@ -26,10 +26,10 @@ headers = {
 }
 
 if not CLEAN:
-    result = req.get("{ep}/zones".format(ep=ENDPOINT), headers=headers).json()
+    result = req.get("{ep}/zones?name={domain}".format(ep=ENDPOINT, domain=ROOT_DOMAIN), headers=headers).json()
     assert result["success"], result["errors"]
 
-    zone_id = list(filter(lambda domain: domain["name"] == ROOT_DOMAIN, result["result"]))[0]["id"]
+    zone_id = result["result"][0]["id"]
 
     data = {
         "type": "TXT",
