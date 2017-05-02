@@ -26,8 +26,10 @@ headers = {
 }
 
 if not CLEAN:
-    result = req.get("{ep}/zones".format(ep=ENDPOINT), headers=headers).json()["result"]
-    zone_id = list(filter(lambda domain: domain["name"] == ROOT_DOMAIN, result))[0]["id"]
+    result = req.get("{ep}/zones".format(ep=ENDPOINT), headers=headers).json()
+    assert result["success"], result["errors"]
+
+    zone_id = list(filter(lambda domain: domain["name"] == ROOT_DOMAIN, result["result"]))[0]["id"]
 
     data = {
         "type": "TXT",
@@ -36,10 +38,10 @@ if not CLEAN:
         "ttl": 120
     }
 
-    record_id = req.post("{ep}/zones/{zone_id}/dns_records".format(
-        ep=ENDPOINT,
-        zone_id=zone_id),
-        headers=headers, json=data).json()["result"]["id"]
+    result = req.post("{ep}/zones/{zone_id}/dns_records".format(ep=ENDPOINT, zone_id=zone_id), headers=headers, json=data).json()
+    assert result["success"], result["errors"]
+
+    record_id = result["result"]["id"]
 
     print("{zone}|{record}".format(zone=zone_id, record=record_id))
 
@@ -51,3 +53,4 @@ else:
         zone_id=zone_id,
         record_id=record_id),
         headers=headers)
+    
