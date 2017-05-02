@@ -43,7 +43,7 @@ if not CLEAN:
 
     print("{zone}|{record}".format(zone=zone_id, record=record_id))
 
-    time.sleep(5)
+    time.sleep(15)
 else:
     zone_id, record_id = CLEAN.split("|")
     req.delete("{ep}/zones/{zone_id}/dns_records/{record_id}".format(
