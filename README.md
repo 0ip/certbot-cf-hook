@@ -10,8 +10,8 @@ In order to set up everything:
 1. Clone this repo somewhere, e. g. `cd && git clone git://github.com/0ip/certbot-cf-hook cch`
 2. Specify your Cloudflare [API key](https://www.cloudflare.com/a/account/my-account) and e-mail in `auth.py`
 3. Adapt the webserver reload command in `certbot_renew.sh` to your environment
-4. Specify your e-mail address and (sub)domains in `certbot_init.sh` and adapt the paths
-5. Redo step 4 and run `certbot_init.sh` for each domain once
-6. If step 5 completed without any errors, you can try `certbot renew --dry-run` to see if everything works
+4. Specify your e-mail address and (sub)domains in `certbot_init.sh` and adapt the hook paths
+5. Redo step 4 and run `sudo certbot_init.sh` for each domain once
+6. If step 5 completed without any errors, you can try `sudo certbot renew --dry-run` to see if everything works
 7. Create a root cronjob `0 3 * * * /home/user/cch/certbot_renew.sh` (runs daily at 03:00 a.m.)
 8. Done :)
